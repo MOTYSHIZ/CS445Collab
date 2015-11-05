@@ -1,15 +1,12 @@
 /***************************************************************
-* file: CS445Project1.java
+* file: CS445Craft.java
 * author: Justin Ordonez
 * class: CS 445 – Computer Graphics
 *
-* assignment: program 1
-* date last modified: 10/12/2015
+* assignment: Final Project Checkpoint 1
+* date last modified: 11/4/2015
 *
-* purpose: This program displays lines, circles, and ellipses as 
-* read from the coordinates.txt file. Circles are in blue, ellipses
-* are in green, and lines are in red. Unfortunately, lines with 
-* slopes outside of -1 < x < 1 are not supported currently.
+* purpose:
 *
 ****************************************************************/ 
 
