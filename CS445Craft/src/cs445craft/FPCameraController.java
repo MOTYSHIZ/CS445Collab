@@ -165,6 +165,7 @@ public class FPCameraController {
     private void render() {
         try{
             glBegin(GL_QUADS);
+<<<<<<< HEAD
                 //top
                 glColor3f(0.0f, 0.0f, 1.0f);
                 glVertex3f(1.0f, 1.0f, -1.0f);
@@ -173,16 +174,32 @@ public class FPCameraController {
                 glVertex3f( 1.0f, 1.0f, 1.0f);
                 //bottom
                 glColor3f(1.0f, 0.0f, 0.0f);
+=======
+                //Top
+                glColor4f(.60f,.40f,.10f,1f);
+                glVertex3f( 1.0f, 1.0f,-1.0f);
+                glVertex3f(-1.0f, 1.0f,-1.0f);
+                glVertex3f(-1.0f, 1.0f, 1.0f);
+                glVertex3f( 1.0f, 1.0f, 1.0f);
+                //Bottom
+                glColor4f(.1f,.16f,.5f, 1f);
+>>>>>>> origin/master
                 glVertex3f( 1.0f,-1.0f, 1.0f);
                 glVertex3f(-1.0f,-1.0f, 1.0f);
                 glVertex3f(-1.0f,-1.0f,-1.0f);
                 glVertex3f( 1.0f,-1.0f,-1.0f);
+<<<<<<< HEAD
                 //front
                 glColor3f(0.0f, 1.0f, 0.0f);
+=======
+                //Front
+                glColor4f(.1f,.86f,.17f, 1f);
+>>>>>>> origin/master
                 glVertex3f( 1.0f, 1.0f, 1.0f);
                 glVertex3f(-1.0f, 1.0f, 1.0f);
                 glVertex3f(-1.0f,-1.0f, 1.0f);
                 glVertex3f( 1.0f,-1.0f, 1.0f);
+<<<<<<< HEAD
                 //back
                 glColor3f(1.0f,0.0f,1.0f);
                 glVertex3f( 1.0f,-1.0f,-1.0f);
@@ -191,10 +208,21 @@ public class FPCameraController {
                 glVertex3f( 1.0f, 1.0f,-1.0f); 
                 //left
                 glColor3f(1.0f, 1.0f, 0.0f);
+=======
+                //Back
+                glColor4f(.43f,.29f,.69f, 1f);
+                glVertex3f( 1.0f,-1.0f,-1.0f);
+                glVertex3f(-1.0f,-1.0f,-1.0f);
+                glVertex3f(-1.0f, 1.0f,-1.0f);
+                glVertex3f( 1.0f, 1.0f,-1.0f);
+                //Left
+                glColor4f(.102f,.92f,.48f, 1f);
+>>>>>>> origin/master
                 glVertex3f(-1.0f, 1.0f,1.0f);
                 glVertex3f(-1.0f, 1.0f,-1.0f);
                 glVertex3f(-1.0f,-1.0f,-1.0f);
                 glVertex3f(-1.0f,-1.0f, 1.0f);
+<<<<<<< HEAD
                 //right
                 glColor3f(0.0f, 1.0f, 1.0f);
                 glVertex3f( 1.0f, 1.0f,-1.0f);
@@ -246,6 +274,40 @@ public class FPCameraController {
                 glVertex3f( 1.0f,-1.0f,-1.0f);
             glEnd();
 
+=======
+                //Right
+                glColor4f(.58f,.50f,.40f, 1f);
+                glVertex3f( 1.0f, 1.0f,-1.0f);
+                glVertex3f( 1.0f, 1.0f, 1.0f);
+                glVertex3f( 1.0f,-1.0f, 1.0f);
+                glVertex3f( 1.0f,-1.0f,-1.0f);
+            glEnd();
+            
+//            glBegin(GL_LINE_LOOP);
+//                //Top
+//                glColor3f(0.0f,0.0f,0.0f);
+//                glVertex3f( 1.0f, 1.0f,-1.0f);
+//                glVertex3f(-1.0f, 1.0f,-1.0f);
+//                glVertex3f(-1.0f, 1.0f, 1.0f);
+//                glVertex3f( 1.0f, 1.0f, 1.0f);
+//                glEnd();
+//                
+//                glBegin(GL_LINE_LOOP);
+//                //Bottom
+//                glVertex3f( 1.0f,-1.0f, 1.0f);
+//                glVertex3f(-1.0f,-1.0f, 1.0f);
+//                glVertex3f(-1.0f,-1.0f,-1.0f);
+//                glVertex3f( 1.0f,-1.0f,-1.0f);
+//                glEnd();
+//                glBegin(GL_LINE_LOOP);
+//                //Front
+//                glVertex3f( 1.0f, 1.0f, 1.0f);
+//                glVertex3f(-1.0f, 1.0f, 1.0f);
+//                glVertex3f(-1.0f,-1.0f, 1.0f);
+//                glVertex3f( 1.0f,-1.0f, 1.0f);
+//            glEnd();
+            
+>>>>>>> origin/master
         }catch(Exception e){
         }
     }
