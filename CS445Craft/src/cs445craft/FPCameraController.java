@@ -128,7 +128,6 @@ public class FPCameraController {
             if (Keyboard.isKeyDown(Keyboard.KEY_S)){    //move backwards
             camera.walkBackwards(movementSpeed);
             }
-            
             if (Keyboard.isKeyDown(Keyboard.KEY_A)){    //strafe left 
             camera.strafeLeft(movementSpeed);
             }
@@ -221,7 +220,6 @@ public class FPCameraController {
 //                glVertex3f(-1.0f,-1.0f, 1.0f);
 //                glVertex3f( 1.0f,-1.0f, 1.0f);
 //            glEnd();
-            
         }catch(Exception e){
         }
     }
