@@ -1,15 +1,14 @@
 /***************************************************************
-* file: CS445Project1.java
-* author: Justin Ordonez
+* file: CS445Craft.java
+* author: Justin Ordonez & Kacey Yahl
 * class: CS 445 – Computer Graphics
 *
-* assignment: program 1
+* assignment: Final Program - CP 1
 * date last modified: 10/12/2015
 *
-* purpose: This program displays lines, circles, and ellipses as 
-* read from the coordinates.txt file. Circles are in blue, ellipses
-* are in green, and lines are in red. Unfortunately, lines with 
-* slopes outside of -1 < x < 1 are not supported currently.
+* purpose: This program displays a cube which has 6 differently
+* colored sides. You can rotate and move the cube by using the mouse and
+* WASD + left shift and space.
 *
 ****************************************************************/ 
 
@@ -20,10 +19,6 @@ import static org.lwjgl.opengl.GL11.*;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.util.glu.GLU;
 
-/**
- *
- * @author Justin
- */
 public class CS445Craft {
     private FPCameraController fp = new FPCameraController(0f,0f,0f);
     private DisplayMode displayMode;
