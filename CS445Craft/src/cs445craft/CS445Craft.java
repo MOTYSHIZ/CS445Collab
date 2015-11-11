@@ -56,7 +56,7 @@ public class CS445Craft {
         }
         
         Display.setDisplayMode(displayMode); 
-        Display.setTitle("WOWEE! The ULTIMATE THING!");
+        Display.setTitle("Aw, Yiss. THREE DEEZ!");
         Display.create();
     }
     
@@ -73,6 +73,11 @@ public class CS445Craft {
                 displayMode.getHeight(), 0.1f, 300.0f);
         glMatrixMode(GL_MODELVIEW);
         glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
+        
+        //added for Chunk render
+        glEnableClientState(GL_VERTEX_ARRAY);
+        glEnableClientState(GL_COLOR_ARRAY);
+        glEnable(GL_DEPTH_TEST);
     }
     
     /** method: main
