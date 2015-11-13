@@ -1,26 +1,15 @@
 /***************************************************************
 * file: CS445Craft.java
-<<<<<<< HEAD
 * author: Justin Ordonez & Kacey Yahl
 * class: CS 445 – Computer Graphics
 *
-* assignment: Final Program - CP 1
-* date last modified: 10/12/2015
+* assignment: Final Program Checkpoint 1
+* date last modified: 11/4/2015
 *
 * purpose: This program displays a cube which has 6 differently
 * colored sides. You can rotate and move the cube by using the mouse and
 * WASD + left shift and space.
-=======
-* author: Justin Ordonez
-* class: CS 445 – Computer Graphics
-*
-* assignment: Final Project Checkpoint 1
-* date last modified: 11/4/2015
-*
-* purpose:
->>>>>>> origin/master
-*
-****************************************************************/ 
+*****************************************************************/
 
 package CS445Craft;
 import org.lwjgl.opengl.Display;
