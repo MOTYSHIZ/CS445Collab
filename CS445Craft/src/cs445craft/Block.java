@@ -7,7 +7,7 @@ package cs445craft;
 
 /**
  *
- * @author Justin
+ * @author Justin and Kacey
  */
 public class Block {
     
