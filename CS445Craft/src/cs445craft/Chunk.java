@@ -29,6 +29,8 @@ public class Chunk {
             glColorPointer(3,GL_FLOAT, 0, 0L);
             glDrawArrays(GL_QUADS, 0,CHUNK_SIZE *CHUNK_SIZE*CHUNK_SIZE * 24);
         glPopMatrix();
+        
+        //insert rendering stuff here
     }
 
     public void rebuildMesh(float startX, float startY, float startZ) { 
@@ -126,18 +128,24 @@ public class Chunk {
         for (int x = 0; x < CHUNK_SIZE; x++) {
             for (int y = 0; y < CHUNK_SIZE; y++) {
                 for (int z = 0; z < CHUNK_SIZE; z++) {
-                    if(r.nextFloat()>0.7f){Blocks[x][y][z] = new Block(
+                    if(r.nextFloat()>0.83f){Blocks[x][y][z] = new Block(
                         Block.BlockType.BlockType_Grass);
-                    }else if(r.nextFloat()>0.4f){
+                    }else if(r.nextFloat()>0.66f){
                         Blocks[x][y][z] = 
-                                new Block(Block.BlockType.BlockType_Dirt);
-                    }else if(r.nextFloat()>0.2f){
+                                new Block(Block.BlockType.BlockType_Sand);
+                    }else if(r.nextFloat() > 0.5f) {
                         Blocks[x][y][z] = 
                                 new Block(Block.BlockType.BlockType_Water);
+                    }else if(r.nextFloat()>0.33f){
+                        Blocks[x][y][z] = 
+                                new Block(Block.BlockType.BlockType_Dirt);
+                    } else if(r.nextFloat() > 0.16f) {
+                        Blocks[x][y][z] = 
+                                new Block(Block.BlockType.BlockType_Stone);
                     }else{Blocks[x][y][z] = 
-                            new Block(Block.BlockType.BlockType_Default);
+                            new Block(Block.BlockType.BlockType_Bedrock);
                     }
-                }
+                } //numbers above divide the 6 block types into 6 categories
             }
         }
         VBOColorHandle= glGenBuffers();

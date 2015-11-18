@@ -11,12 +11,12 @@ public class Block {
     private float x,y,z;
     
     public enum BlockType{
-        BlockType_Grass(0),
-        BlockType_Sand(1),
-        BlockType_Water(2),
-        BlockType_Dirt(3),
-        BlockType_Stone(4),
-        BlockType_Bedrock(5);
+        BlockType_Grass(0), //.7
+        BlockType_Sand(1), //.6
+        BlockType_Water(2), //.5
+        BlockType_Dirt(3), //.4
+        BlockType_Stone(4),  //.3
+        BlockType_Bedrock(5); 
         
         private int BlockID;
         

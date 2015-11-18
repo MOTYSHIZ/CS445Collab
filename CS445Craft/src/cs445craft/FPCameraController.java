@@ -16,6 +16,7 @@ public class FPCameraController {
     //the rotation around the X axis of the camera
     private float pitch = 0.0f;
     private Vector3f me;
+    private Chunk chunk = new Chunk(0, 0, 0);
 
 
     public FPCameraController(float x, float y, float z){
@@ -153,7 +154,7 @@ public class FPCameraController {
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
             glEnable(GL_DEPTH_TEST); //Allows depth pereption
             //you would draw your scene here.
-            render();
+            chunk.render();
             //draw the buffer to the screen
             Display.update();
             Display.sync(60);
