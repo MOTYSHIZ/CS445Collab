@@ -1,4 +1,4 @@
-package CS445Craft;
+package cs445craft;
 
 import org.lwjgl.util.vector.Vector3f;
 import org.lwjgl.input.Keyboard;
@@ -16,6 +16,7 @@ public class FPCameraController {
     //the rotation around the X axis of the camera
     private float pitch = 0.0f;
     private Vector3f me;
+    private Chunk chunk;
 
 
     public FPCameraController(float x, float y, float z){
@@ -25,6 +26,7 @@ public class FPCameraController {
         lPosition.x = 0f;
         lPosition.y = 15f;
         lPosition.z = 0f;
+        
     }
 
     //increment the camera's current yaw rotation
@@ -122,10 +124,12 @@ public class FPCameraController {
             //we times the movementSpeedwith dtthis is a time scale
             //so if its a slow frame u move more then a fast frame
             //so on a slow computer you move just as fast as on a fast computer
-            if (Keyboard.isKeyDown(Keyboard.KEY_W)){    //move forward
+            if (Keyboard.isKeyDown(Keyboard.KEY_W) ||
+                    Keyboard.isKeyDown(Keyboard.KEY_UP)){    //move forward
             camera.walkForward(movementSpeed);
             }
-            if (Keyboard.isKeyDown(Keyboard.KEY_S)){    //move backwards
+            if (Keyboard.isKeyDown(Keyboard.KEY_S) ||
+                    Keyboard.isKeyDown(Keyboard.KEY_DOWN)){    //move backwards
             camera.walkBackwards(movementSpeed);
             }
             
@@ -137,12 +141,10 @@ public class FPCameraController {
                     Keyboard.isKeyDown(Keyboard.KEY_RIGHT)) {   //strafe right
             camera.strafeRight(movementSpeed);
             }
-            if (Keyboard.isKeyDown(Keyboard.KEY_SPACE) ||
-                    Keyboard.isKeyDown(Keyboard.KEY_UP)){    //move up 
+            if (Keyboard.isKeyDown(Keyboard.KEY_SPACE)){    //move up 
             camera.moveUp(movementSpeed);
             }
-            if (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) ||
-                    Keyboard.isKeyDown(Keyboard.KEY_DOWN)) {     //move down  
+            if (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT)) {     //move down  
             camera.moveDown(movementSpeed);
             }
             
@@ -151,9 +153,12 @@ public class FPCameraController {
             //look through the camera before you draw anything
             camera.lookThrough();
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-            glEnable(GL_DEPTH_TEST); //Allows depth pereption
+            glEnable(GL_DEPTH_TEST); //Allows depth perception
             //you would draw your scene here.
-            render();
+            
+            chunk = new Chunk(0, 0, 0);
+            chunk.render();
+            
             //draw the buffer to the screen
             Display.update();
             Display.sync(60);
@@ -165,66 +170,38 @@ public class FPCameraController {
     private void render() {
         try{
             glBegin(GL_QUADS);
-<<<<<<< HEAD
                 //top
-                glColor3f(0.0f, 0.0f, 1.0f);
+                glColor4f(0.0f, 0.0f, 1.0f, 0.5f);
                 glVertex3f(1.0f, 1.0f, -1.0f);
                 glVertex3f(-1.0f, 1.0f,-1.0f);
                 glVertex3f(-1.0f, 1.0f, 1.0f);
                 glVertex3f( 1.0f, 1.0f, 1.0f);
                 //bottom
-                glColor3f(1.0f, 0.0f, 0.0f);
-=======
-                //Top
-                glColor4f(.60f,.40f,.10f,1f);
-                glVertex3f( 1.0f, 1.0f,-1.0f);
-                glVertex3f(-1.0f, 1.0f,-1.0f);
-                glVertex3f(-1.0f, 1.0f, 1.0f);
-                glVertex3f( 1.0f, 1.0f, 1.0f);
-                //Bottom
-                glColor4f(.1f,.16f,.5f, 1f);
->>>>>>> origin/master
+                glColor4f(1.0f, 0.0f, 0.0f, 0.5f);
                 glVertex3f( 1.0f,-1.0f, 1.0f);
                 glVertex3f(-1.0f,-1.0f, 1.0f);
                 glVertex3f(-1.0f,-1.0f,-1.0f);
                 glVertex3f( 1.0f,-1.0f,-1.0f);
-<<<<<<< HEAD
                 //front
-                glColor3f(0.0f, 1.0f, 0.0f);
-=======
-                //Front
-                glColor4f(.1f,.86f,.17f, 1f);
->>>>>>> origin/master
+                glColor4f(0.0f, 1.0f, 0.0f, 0.5f);
                 glVertex3f( 1.0f, 1.0f, 1.0f);
                 glVertex3f(-1.0f, 1.0f, 1.0f);
                 glVertex3f(-1.0f,-1.0f, 1.0f);
                 glVertex3f( 1.0f,-1.0f, 1.0f);
-<<<<<<< HEAD
                 //back
-                glColor3f(1.0f,0.0f,1.0f);
+                glColor4f(1.0f,0.0f,1.0f, 0.5f);
                 glVertex3f( 1.0f,-1.0f,-1.0f);
                 glVertex3f(-1.0f,-1.0f,-1.0f);
                 glVertex3f(-1.0f, 1.0f,-1.0f);
                 glVertex3f( 1.0f, 1.0f,-1.0f); 
                 //left
-                glColor3f(1.0f, 1.0f, 0.0f);
-=======
-                //Back
-                glColor4f(.43f,.29f,.69f, 1f);
-                glVertex3f( 1.0f,-1.0f,-1.0f);
-                glVertex3f(-1.0f,-1.0f,-1.0f);
-                glVertex3f(-1.0f, 1.0f,-1.0f);
-                glVertex3f( 1.0f, 1.0f,-1.0f);
-                //Left
-                glColor4f(.102f,.92f,.48f, 1f);
->>>>>>> origin/master
+                glColor4f(1.0f, 1.0f, 0.0f, 0.5f);
                 glVertex3f(-1.0f, 1.0f,1.0f);
                 glVertex3f(-1.0f, 1.0f,-1.0f);
                 glVertex3f(-1.0f,-1.0f,-1.0f);
                 glVertex3f(-1.0f,-1.0f, 1.0f);
-<<<<<<< HEAD
                 //right
-                glColor3f(0.0f, 1.0f, 1.0f);
+                glColor4f(0.0f, 1.0f, 1.0f, 0.5f);
                 glVertex3f( 1.0f, 1.0f,-1.0f);
                 glVertex3f( 1.0f, 1.0f, 1.0f);
                 glVertex3f( 1.0f,-1.0f, 1.0f);
@@ -272,42 +249,7 @@ public class FPCameraController {
                 glVertex3f( 1.0f, 1.0f, 1.0f);
                 glVertex3f( 1.0f,-1.0f, 1.0f);
                 glVertex3f( 1.0f,-1.0f,-1.0f);
-            glEnd();
-
-=======
-                //Right
-                glColor4f(.58f,.50f,.40f, 1f);
-                glVertex3f( 1.0f, 1.0f,-1.0f);
-                glVertex3f( 1.0f, 1.0f, 1.0f);
-                glVertex3f( 1.0f,-1.0f, 1.0f);
-                glVertex3f( 1.0f,-1.0f,-1.0f);
-            glEnd();
-            
-//            glBegin(GL_LINE_LOOP);
-//                //Top
-//                glColor3f(0.0f,0.0f,0.0f);
-//                glVertex3f( 1.0f, 1.0f,-1.0f);
-//                glVertex3f(-1.0f, 1.0f,-1.0f);
-//                glVertex3f(-1.0f, 1.0f, 1.0f);
-//                glVertex3f( 1.0f, 1.0f, 1.0f);
-//                glEnd();
-//                
-//                glBegin(GL_LINE_LOOP);
-//                //Bottom
-//                glVertex3f( 1.0f,-1.0f, 1.0f);
-//                glVertex3f(-1.0f,-1.0f, 1.0f);
-//                glVertex3f(-1.0f,-1.0f,-1.0f);
-//                glVertex3f( 1.0f,-1.0f,-1.0f);
-//                glEnd();
-//                glBegin(GL_LINE_LOOP);
-//                //Front
-//                glVertex3f( 1.0f, 1.0f, 1.0f);
-//                glVertex3f(-1.0f, 1.0f, 1.0f);
-//                glVertex3f(-1.0f,-1.0f, 1.0f);
-//                glVertex3f( 1.0f,-1.0f, 1.0f);
-//            glEnd();
-            
->>>>>>> origin/master
+            glEnd();           
         }catch(Exception e){
         }
     }

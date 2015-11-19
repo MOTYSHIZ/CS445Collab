@@ -1,16 +1,5 @@
 /***************************************************************
 * file: CS445Craft.java
-<<<<<<< HEAD
-* author: Justin Ordonez & Kacey Yahl
-* class: CS 445 – Computer Graphics
-*
-* assignment: Final Program - CP 1
-* date last modified: 10/12/2015
-*
-* purpose: This program displays a cube which has 6 differently
-* colored sides. You can rotate and move the cube by using the mouse and
-* WASD + left shift and space.
-=======
 * author: Justin Ordonez
 * class: CS 445 – Computer Graphics
 *
@@ -18,17 +7,21 @@
 * date last modified: 11/4/2015
 *
 * purpose:
->>>>>>> origin/master
 *
 ****************************************************************/ 
 
-package CS445Craft;
+package cs445craft;
+
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 import static org.lwjgl.opengl.GL11.*;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.util.glu.GLU;
 
+/**
+ *
+ * @author Justin
+ */
 public class CS445Craft {
     private FPCameraController fp = new FPCameraController(0f,0f,0f);
     private DisplayMode displayMode;
@@ -64,7 +57,7 @@ public class CS445Craft {
         }
         
         Display.setDisplayMode(displayMode); 
-        Display.setTitle("WOWEE! The ULTIMATE THING!");
+        Display.setTitle("Aw, Yiss. THREE DEEZ!");
         Display.create();
     }
     
@@ -81,6 +74,15 @@ public class CS445Craft {
                 displayMode.getHeight(), 0.1f, 300.0f);
         glMatrixMode(GL_MODELVIEW);
         glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
+        
+        //added for Chunk render
+        glEnableClientState(GL_VERTEX_ARRAY);
+        glEnableClientState(GL_COLOR_ARRAY);
+        glEnable(GL_DEPTH_TEST);
+        
+        //These are enabled for texture mapping.
+        glEnable(GL_TEXTURE_2D);
+        glEnableClientState(GL_TEXTURE_COORD_ARRAY);
     }
     
     /** method: main
