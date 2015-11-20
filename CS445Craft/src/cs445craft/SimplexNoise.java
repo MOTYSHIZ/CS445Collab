@@ -1,3 +1,5 @@
+package cs445craft;
+
 import java.util.Random;
 
 public class SimplexNoise {

@@ -26,6 +26,7 @@ public class Chunk {
     private Texture texture;
     private int StartX, StartY, StartZ;
     private Random r;
+    private SimplexNoise sn;
     
     public void render(){
         glPushMatrix();
@@ -57,17 +58,26 @@ public class Chunk {
         FloatBuffer VertexTextureData =BufferUtils.createFloatBuffer((CHUNK_SIZE*
                 CHUNK_SIZE *CHUNK_SIZE)* 6 * 12);
         
+        //Apply noise here
+        sn = new SimplexNoise(r.nextInt(CHUNK_SIZE), r.nextDouble(), r.nextInt());
+        float y = 0;
         for (float x = 0; x < CHUNK_SIZE; x += 1) {
             for (float z = 0; z < CHUNK_SIZE; z += 1) {
-                for(float y = 0; y < CHUNK_SIZE; y++){
-                    VertexPositionData.put(createCube((float) 
+                float height = startY + (int)(100 * sn.getNoise((int)x, (int)y, (int)z)) * CUBE_LENGTH;
+                
+                for(y = 0; y < CHUNK_SIZE; y++){
+                    if(height > y) {
+                        VertexPositionData.put(createCube((float) 
                             (startX+ x *CUBE_LENGTH),
                             (float)(y*CUBE_LENGTH+(int)(CHUNK_SIZE*.8)),
                             (float) (startZ+ z * CUBE_LENGTH)));
+                    System.out.println(x + "\t" + y + "\t" + z);
                     VertexColorData.put(createCubeVertexCol(
                             getCubeColor(Blocks[(int) x][(int) y][(int) z])));
                     VertexTextureData.put(createTexCube((float) 0, (float) 0,
                             Blocks[(int)(x)][(int) (y)][(int) (z)]));
+                    }
+                    
                 }
             }
         }
