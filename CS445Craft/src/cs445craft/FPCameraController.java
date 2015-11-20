@@ -1,3 +1,17 @@
+/***************************************************************
+* file: FPCameraController.java
+* author: Justin Ordonez & Kacey Yahl
+* class: CS 445 – Computer Graphics
+*
+* assignment: Final Project Checkpoint 2
+* date last modified: 11/19/2015
+*
+* purpose: Creates a controllable camera for viewing the scene.
+* Also contains the gameLoop() method which is essentially the method that the program
+* spends most of its time in.
+*
+****************************************************************/ 
+
 package cs445craft;
 
 import java.util.Random;
@@ -19,7 +33,10 @@ public class FPCameraController {
     private Vector3f me;
     private Chunk chunk;
 
-
+    /** method: FPCameraController
+     * purpose: Constructor for this class. Parameters are the starting 
+     * coordinates for the camera.
+    **/   
     public FPCameraController(float x, float y, float z){
         //instantiate position Vector3f to the x y z params.
         position = new Vector3f(x, y, z);
@@ -31,21 +48,27 @@ public class FPCameraController {
         Random r = new Random(); //helps generate chunks of random height
         chunk = new Chunk(0, r.nextInt(50), 0);
     }
-
-    //increment the camera's current yaw rotation
+    
+    /** method: yaw
+     * purpose: Increments the camera's current yaw rotation
+    **/   
     public void yaw(float amount){
-    //increment the yaw by the amount param
-    yaw += amount;
+        //increment the yaw by the amount param
+        yaw += amount;
     }
     
     
-    //increment the camera's current yaw rotation
+    /** method: pitch
+    * purpose: Increments the camera's current pitch.
+    **/   
     public void pitch(float amount){
-    //increment the pitch by the amount param
-    pitch -= amount;
+        //increment the pitch by the amount param
+        pitch -= amount;
     }
     
-    //moves the camera forward relative to its current rotation (yaw)
+    /** method: walkForward
+    * purpose: Moves the camera forward relative to its current rotation (yaw)
+    **/ 
     public void walkForward(float distance){
         float xOffset= distance * (float)Math.sin(Math.toRadians(yaw));
         float zOffset= distance * (float)Math.cos(Math.toRadians(yaw));
@@ -53,7 +76,9 @@ public class FPCameraController {
         position.z+= zOffset;
     }
     
-    //moves the camera backward relative to its current rotation (yaw)
+    /** method: walkBackwards
+    * purpose: Moves the camera backward relative to its current rotation (yaw)
+    **/ 
     public void walkBackwards(float distance){
         float xOffset= distance * (float)Math.sin(Math.toRadians(yaw));
         float zOffset= distance * (float)Math.cos(Math.toRadians(yaw));
@@ -61,7 +86,9 @@ public class FPCameraController {
         position.z-= zOffset;
     }
     
-    //strafes the camera left relative to its current rotation (yaw)
+    /** method: strafeLeft
+    * purpose: Strafes the camera left relative to its current rotation (yaw)
+    **/ 
     public void strafeLeft(float distance){
         float xOffset= distance * (float)Math.sin(Math.toRadians(yaw-90));
         float zOffset= distance * (float)Math.cos(Math.toRadians(yaw-90));
@@ -69,7 +96,9 @@ public class FPCameraController {
         position.z+= zOffset;
     }
     
-    //strafes the camera right relative to its current rotation (yaw)
+    /** method: strafeRight
+    * purpose: Strafes the camera right relative to its current rotation (yaw)
+    **/ 
     public void strafeRight(float distance){
         float xOffset= distance * (float)Math.sin(Math.toRadians(yaw+90));
         float zOffset= distance * (float)Math.cos(Math.toRadians(yaw+90));
@@ -77,18 +106,24 @@ public class FPCameraController {
         position.z+= zOffset;
     }
     
-    //moves the camera up relative to its current rotation (yaw)
+    /** method: moveUp
+    * purpose: Moves the camera up
+    **/
     public void moveUp(float distance){
     position.y-= distance;
     }
     
-    //moves the camera down
+    /** method: moveDown
+    * purpose: Moves the camera down
+    **/
     public void moveDown(float distance){
     position.y+= distance;
     }
     
-    //translates and rotate the matrix so that it looks through the camera
-    //this does basically what gluLookAt() does
+    /** method: lookThrough
+    * purpose: translates and rotate the matrix so that it looks through the 
+    * camera this does basically what gluLookAt() does
+    **/
     public void lookThrough(){
         //rotate the pitch around the X axis
         glRotatef(pitch, 1.0f, 0.0f, 0.0f);
@@ -98,6 +133,11 @@ public class FPCameraController {
         glTranslatef(position.x, position.y, position.z);
     }
     
+    /** method: gameLoop
+    * purpose: Listens for user-input to determine where the camera moves.
+    * Also makes the call to the Chunk's render class.
+    * Pressing ESC closes the program.
+    **/
     public void gameLoop(){
         FPCameraController camera = new FPCameraController(0, 0, 0);
         float dx = 0.0f;

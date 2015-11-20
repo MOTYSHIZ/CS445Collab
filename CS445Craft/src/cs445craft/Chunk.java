@@ -1,8 +1,17 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+/***************************************************************
+* file: Chunk.java
+* author: Justin Ordonez & Kacey Yahl
+* class: CS 445 – Computer Graphics
+*
+* assignment: Final Project Checkpoint 2
+* date last modified: 11/19/2015
+*
+* purpose: Creates a chunk to be rendered. Has its own render method, which
+* will be the primary rendering method for the program. This class uses the
+* Block class to create and texture the blocks that build up the scene.
+*
+****************************************************************/ 
+
 package cs445craft;
 
 import java.nio.FloatBuffer;

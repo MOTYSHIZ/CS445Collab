@@ -1,3 +1,15 @@
+/***************************************************************
+* file: SimplexNoise_octave.java
+* author: Justin Ordonez & Kacey Yahl
+* class: CS 445 – Computer Graphics
+*
+* assignment: Final Project Checkpoint 2
+* date last modified: 11/19/2015
+*
+* purpose: Generates noise octaves for the SimplexNoise class t layer.
+*
+****************************************************************/ 
+
 package cs445craft;
 
 import java.awt.Color;

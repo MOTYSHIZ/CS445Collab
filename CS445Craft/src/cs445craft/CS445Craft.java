@@ -6,7 +6,8 @@
 * assignment: Final Project Checkpoint 2
 * date last modified: 11/19/2015
 *
-* purpose: Create terrain with simplex noise, add in textures,
+* purpose: Main class of the program, calls the other classes from its
+* start() method. Create terrain with simplex noise, add in textures,
 * and make sure everything is in a chunk. 
 *
 ****************************************************************/ 
