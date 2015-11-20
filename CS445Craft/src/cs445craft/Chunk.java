@@ -84,7 +84,6 @@ public class Chunk {
                 double s = Math.ceil((double)height);
                 
                 for(y = 0; y < CHUNK_SIZE; y++){
-                    System.out.println(s + "\t" + y);
                     if(s >= y) {
                         VertexPositionData.put(createCube((float) 
                             (startX+ x *CUBE_LENGTH),
@@ -97,8 +96,8 @@ public class Chunk {
                             Blocks[(int)x][(int)y][(int)z] = new Block(Block.BlockType.BlockType_Bedrock);
                             VertexTextureData.put(createTexCube((float) 0, (float) 0,
                                 Blocks[(int)(x)][(int) (y)][(int) (z)]));
-                        } else if (s ==y) {
-                            
+                        } else if (s == y) {
+                            //creates top most layer
                             
                             if(r.nextFloat() > .75) {
                                 Blocks[(int)x][(int)y][(int)z] = 
@@ -116,7 +115,7 @@ public class Chunk {
                             VertexTextureData.put(createTexCube((float) 0, (float) 0,
                                 Blocks[(int)(x)][(int) (y)][(int) (z)]));
                             
-                        }else {
+                        }else { //creates innermost layers of THE EARTH! 
                             if(r.nextFloat() > .5) {
                                 Blocks[(int)x][(int) y][(int)z] = 
                                         new Block(Block.BlockType.BlockType_Stone);
@@ -214,33 +213,6 @@ public class Chunk {
         r= new Random();
         Blocks = new Block[CHUNK_SIZE][CHUNK_SIZE][CHUNK_SIZE];
         
-       
-        
-        for (int x = 0; x < CHUNK_SIZE; x++) {
-            for (int y = 0; y < CHUNK_SIZE; y++) {
-                for (int z = 0; z < CHUNK_SIZE; z++) {
-                    if(r.nextFloat()>0.86f){Blocks[x][y][z] = new Block(
-                        Block.BlockType.BlockType_Grass);
-                    }else if(r.nextFloat()>0.71f){
-                        Blocks[x][y][z] = 
-                                new Block(Block.BlockType.BlockType_Sand);
-                    }else if(r.nextFloat() > 0.57f) {
-                        Blocks[x][y][z] = 
-                                new Block(Block.BlockType.BlockType_Water);
-                    }else if(r.nextFloat()>0.43f){
-                        Blocks[x][y][z] = 
-                                new Block(Block.BlockType.BlockType_Dirt);
-                    } else if(r.nextFloat() > 0.29f) {
-                        Blocks[x][y][z] = 
-                                new Block(Block.BlockType.BlockType_Stone);
-                    }else if(r.nextFloat() > 0.14f) {Blocks[x][y][z] = 
-                            new Block(Block.BlockType.BlockType_Bedrock);
-                    }else {Blocks[x][y][z] = 
-                            new Block(Block.BlockType.BlockType_Glowstone);
-                    }
-                } //numbers above divide the 7 block types into 7 categories
-            }
-        }
         VBOColorHandle= glGenBuffers();
         VBOVertexHandle= glGenBuffers();
         VBOTextureHandle= glGenBuffers();
