@@ -71,7 +71,7 @@ public class Chunk {
                 }
 
                 float height = startY + noiseValue * CUBE_LENGTH;
-                height = (30*height/100);
+                height = (3*height/25);
                 
                 for(y = 0; y < CHUNK_SIZE; y++){
                     if(height > y) {

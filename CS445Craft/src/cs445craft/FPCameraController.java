@@ -1,5 +1,6 @@
 package cs445craft;
 
+import java.util.Random;
 import org.lwjgl.util.vector.Vector3f;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
@@ -16,7 +17,7 @@ public class FPCameraController {
     //the rotation around the X axis of the camera
     private float pitch = 0.0f;
     private Vector3f me;
-    private Chunk chunk = new Chunk(0, 0, 0);
+    private Chunk chunk;
 
 
     public FPCameraController(float x, float y, float z){
@@ -27,6 +28,8 @@ public class FPCameraController {
         lPosition.y = 15f;
         lPosition.z = 0f;
         
+        Random r = new Random(); //helps generate chunks of random height
+        chunk = new Chunk(0, r.nextInt(50), 0);
     }
 
     //increment the camera's current yaw rotation

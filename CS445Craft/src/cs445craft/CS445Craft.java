@@ -1,12 +1,13 @@
 /***************************************************************
 * file: CS445Craft.java
-* author: Justin Ordonez
+* author: Justin Ordonez & Kacey Yahl
 * class: CS 445 – Computer Graphics
 *
 * assignment: Final Project Checkpoint 2
 * date last modified: 11/19/2015
 *
-* purpose:
+* purpose: Create terrain with simplex noise, add in textures,
+* and make sure everything is in a chunk. 
 *
 ****************************************************************/ 
 
