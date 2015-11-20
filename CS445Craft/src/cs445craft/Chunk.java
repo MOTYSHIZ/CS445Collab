@@ -59,11 +59,19 @@ public class Chunk {
                 CHUNK_SIZE *CHUNK_SIZE)* 6 * 12);
         
         //Apply noise here
-        sn = new SimplexNoise(r.nextInt(CHUNK_SIZE), r.nextDouble(), r.nextInt());
+        int seed = r.nextInt(5000);
+        sn = new SimplexNoise(r.nextInt(CHUNK_SIZE), .15, seed);
         float y = 0;
         for (float x = 0; x < CHUNK_SIZE; x += 1) {
             for (float z = 0; z < CHUNK_SIZE; z += 1) {
-                float height = startY + (int)(100 * sn.getNoise((int)x, (int)y, (int)z)) * CUBE_LENGTH;
+                
+                int noiseValue = Math.abs((int)(100 * sn.getNoise((int)x, (int)y, (int)z))); //-100 to 100
+                if(noiseValue == 0) {
+                    noiseValue = 1;
+                }
+
+                float height = startY + noiseValue * CUBE_LENGTH;
+                height = (30*height/100);
                 
                 for(y = 0; y < CHUNK_SIZE; y++){
                     if(height > y) {
@@ -71,7 +79,6 @@ public class Chunk {
                             (startX+ x *CUBE_LENGTH),
                             (float)(y*CUBE_LENGTH+(int)(CHUNK_SIZE*.8)),
                             (float) (startZ+ z * CUBE_LENGTH)));
-                    System.out.println(x + "\t" + y + "\t" + z);
                     VertexColorData.put(createCubeVertexCol(
                             getCubeColor(Blocks[(int) x][(int) y][(int) z])));
                     VertexTextureData.put(createTexCube((float) 0, (float) 0,
