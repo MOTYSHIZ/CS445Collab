@@ -17,7 +17,7 @@ import org.newdawn.slick.opengl.TextureLoader;
 import org.newdawn.slick.util.ResourceLoader;
 
 public class Chunk {
-    static final int CHUNK_SIZE = 10;
+    static final int CHUNK_SIZE = 30;
     static final int CUBE_LENGTH = 2;
     private Block[][][] Blocks;
     private int VBOVertexHandle;
@@ -135,15 +135,6 @@ public class Chunk {
     }
     
     private float[] getCubeColor(Block block) {
-//        switch (block.GetID()) {
-//            case 1:
-//                return new float[] { 0, 1, 0 };
-//            case 2:
-//                return new float[] { 1, 0.5f, 0 };
-//            case 3:
-//                return new float[] { 0, 0f, 1f };
-//        }
-//        
         return new float[] { 1, 1, 1 };
     }
     
@@ -161,24 +152,26 @@ public class Chunk {
         for (int x = 0; x < CHUNK_SIZE; x++) {
             for (int y = 0; y < CHUNK_SIZE; y++) {
                 for (int z = 0; z < CHUNK_SIZE; z++) {
-                    if(r.nextFloat()>0.83f){Blocks[x][y][z] = new Block(
+                    if(r.nextFloat()>0.86f){Blocks[x][y][z] = new Block(
                         Block.BlockType.BlockType_Grass);
-                    }else if(r.nextFloat()>0.66f){
+                    }else if(r.nextFloat()>0.71f){
                         Blocks[x][y][z] = 
                                 new Block(Block.BlockType.BlockType_Sand);
-                    }else if(r.nextFloat() > 0.5f) {
+                    }else if(r.nextFloat() > 0.57f) {
                         Blocks[x][y][z] = 
                                 new Block(Block.BlockType.BlockType_Water);
-                    }else if(r.nextFloat()>0.33f){
+                    }else if(r.nextFloat()>0.43f){
                         Blocks[x][y][z] = 
                                 new Block(Block.BlockType.BlockType_Dirt);
-                    } else if(r.nextFloat() > 0.16f) {
+                    } else if(r.nextFloat() > 0.29f) {
                         Blocks[x][y][z] = 
                                 new Block(Block.BlockType.BlockType_Stone);
-                    }else{Blocks[x][y][z] = 
+                    }else if(r.nextFloat() > 0.14f) {Blocks[x][y][z] = 
                             new Block(Block.BlockType.BlockType_Bedrock);
+                    }else {Blocks[x][y][z] = 
+                            new Block(Block.BlockType.BlockType_Glowstone);
                     }
-                } //numbers above divide the 6 block types into 6 categories
+                } //numbers above divide the 7 block types into 7 categories
             }
         }
         VBOColorHandle= glGenBuffers();
@@ -195,14 +188,238 @@ public class Chunk {
         float offset = (1024f/16)/1024f;
         
         switch (block.GetID()) {
-            default :
+            case 0 : //Grass
                 return new float[] {
-                // BOTTOM QUAD(DOWN=+Y)
+                // Top
+                x + offset* 3, y + offset*10,
+                x + offset*2, y + offset*10,
+                x + offset*2, y + offset*9,
+                x + offset*3, y + offset*9,
+                // Bottom 
+                x + offset*3, y + offset*1,
+                x + offset*2, y + offset*1,
+                x + offset*2, y + offset*0,
+                x + offset*3, y + offset*0,
+                // FRONT QUAD
+                x + offset*3, y + offset*0,
+                x + offset*4, y + offset*0,
+                x + offset*4, y + offset*1,
+                x + offset*3, y + offset*1,
+                // BACK QUAD
+                x + offset*4, y + offset*1,
+                x + offset*3, y + offset*1,
+                x + offset*3, y + offset*0,
+                x + offset*4, y + offset*0,
+                // LEFT QUAD
+                x + offset*3, y + offset*0,
+                x + offset*4, y + offset*0,
+                x + offset*4, y + offset*1,
+                x + offset*3, y + offset*1,
+                // RIGHT QUAD
+                x + offset*3, y + offset*0,
+                x + offset*4, y + offset*0,
+                x + offset*4, y + offset*1,
+                x + offset*3, y + offset*1};
+            case 1 : //Sand
+                return new float[] {
+                // Top
+                x + offset*2, y + offset*1,
+                x + offset*3, y + offset*1,
+                x + offset*3, y + offset*2,
+                x + offset*2, y + offset*2,
+                // Bottom 
+                x + offset*2, y + offset*1,
+                x + offset*3, y + offset*1,
+                x + offset*3, y + offset*2,
+                x + offset*2, y + offset*2,
+                // FRONT QUAD
+                x + offset*2, y + offset*1,
+                x + offset*3, y + offset*1,
+                x + offset*3, y + offset*2,
+                x + offset*2, y + offset*2,
+                // BACK QUAD
+                x + offset*2, y + offset*1,
+                x + offset*3, y + offset*1,
+                x + offset*3, y + offset*2,
+                x + offset*2, y + offset*2,
+                // LEFT QUAD
+                x + offset*2, y + offset*1,
+                x + offset*3, y + offset*1,
+                x + offset*3, y + offset*2,
+                x + offset*2, y + offset*2,
+                // RIGHT QUAD
+                x + offset*2, y + offset*1,
+                x + offset*3, y + offset*1,
+                x + offset*3, y + offset*2,
+                x + offset*2, y + offset*2};
+            case 2 : //Water
+                return new float[] {
+                // Top
+                x + offset*0 , y + offset*9,
+                x + offset*1, y + offset*9,
+                x + offset*1, y + offset*10,
+                x + offset*0, y + offset*10,
+                // Bottom
+                x + offset*0 , y + offset*9,
+                x + offset*1, y + offset*9,
+                x + offset*1, y + offset*10,
+                x + offset*0, y + offset*10,
+                // FRONT QUAD
+                x + offset*0 , y + offset*9,
+                x + offset*1, y + offset*9,
+                x + offset*1, y + offset*10,
+                x + offset*0, y + offset*10,
+                // BACK QUAD
+                x + offset*0 , y + offset*9,
+                x + offset*1, y + offset*9,
+                x + offset*1, y + offset*10,
+                x + offset*0, y + offset*10,
+                // LEFT QUAD
+                x + offset*0 , y + offset*9,
+                x + offset*1, y + offset*9,
+                x + offset*1, y + offset*10,
+                x + offset*0, y + offset*10,
+                // RIGHT QUAD
+                x + offset*0 , y + offset*9,
+                x + offset*1, y + offset*9,
+                x + offset*1, y + offset*10,
+                x + offset*0, y + offset*10 };
+            case 3 : //Dirt
+                return new float[] {
+                // Top
+                x + offset*3, y + offset*1,
+                x + offset*2, y + offset*1,
+                x + offset*2, y + offset*0,
+                x + offset*3, y + offset*0,
+                // Bottom
+                x + offset*3, y + offset*1,
+                x + offset*2, y + offset*1,
+                x + offset*2, y + offset*0,
+                x + offset*3, y + offset*0,
+                // FRONT QUAD
+                x + offset*3, y + offset*1,
+                x + offset*2, y + offset*1,
+                x + offset*2, y + offset*0,
+                x + offset*3, y + offset*0,
+                // BACK QUAD
+                x + offset*3, y + offset*1,
+                x + offset*2, y + offset*1,
+                x + offset*2, y + offset*0,
+                x + offset*3, y + offset*0,
+                // LEFT QUAD
+                x + offset*3, y + offset*1,
+                x + offset*2, y + offset*1,
+                x + offset*2, y + offset*0,
+                x + offset*3, y + offset*0,
+                // RIGHT QUAD
+                x + offset*3, y + offset*1,
+                x + offset*2, y + offset*1,
+                x + offset*2, y + offset*0,
+                x + offset*3, y + offset*0};
+            case 4 : //Stone
+                return new float[] {
+                // Top
+                x + offset*0, y + offset*1,
+                x + offset*1, y + offset*1,
+                x + offset*1, y + offset*2,
+                x + offset*0, y + offset*2,
+                // Bottom
+                x + offset*0, y + offset*1,
+                x + offset*1, y + offset*1,
+                x + offset*1, y + offset*2,
+                x + offset*0, y + offset*2,
+                // FRONT QUAD
+                x + offset*0, y + offset*1,
+                x + offset*1, y + offset*1,
+                x + offset*1, y + offset*2,
+                x + offset*0, y + offset*2,
+                // BACK QUAD
+                x + offset*0, y + offset*1,
+                x + offset*1, y + offset*1,
+                x + offset*1, y + offset*2,
+                x + offset*0, y + offset*2,
+                // LEFT QUAD
+                x + offset*0, y + offset*1,
+                x + offset*1, y + offset*1,
+                x + offset*1, y + offset*2,
+                x + offset*0, y + offset*2,
+                // RIGHT QUAD
+                x + offset*0, y + offset*1,
+                x + offset*1, y + offset*1,
+                x + offset*1, y + offset*2,
+                x + offset*0, y + offset*2};
+            case 5 : //Bedrock
+                return new float[] {
+                // Top
+                x + offset*1, y + offset*1,
+                x + offset*2, y + offset*1,
+                x + offset*2, y + offset*2,
+                x + offset*1, y + offset*2,
+                // Bottom
+                x + offset*1, y + offset*1,
+                x + offset*2, y + offset*1,
+                x + offset*2, y + offset*2,
+                x + offset*1, y + offset*2,
+                // FRONT QUAD
+                x + offset*1, y + offset*1,
+                x + offset*2, y + offset*1,
+                x + offset*2, y + offset*2,
+                x + offset*1, y + offset*2,
+                // BACK QUAD
+                x + offset*1, y + offset*1,
+                x + offset*2, y + offset*1,
+                x + offset*2, y + offset*2,
+                x + offset*1, y + offset*2,
+                // LEFT QUAD
+                x + offset*1, y + offset*1,
+                x + offset*2, y + offset*1,
+                x + offset*2, y + offset*2,
+                x + offset*1, y + offset*2,
+                // RIGHT QUAD
+                x + offset*1, y + offset*1,
+                x + offset*2, y + offset*1,
+                x + offset*2, y + offset*2,
+                x + offset*1, y + offset*2};
+            case 6 : //Glowstone 
+                return new float[] {
+                // Top
+                x + offset*0, y + offset*3,
+                x + offset*1, y + offset*3,
+                x + offset*1, y + offset*4,
+                x + offset*0, y + offset*4,
+                // Bottom
+                x + offset*0, y + offset*3,
+                x + offset*1, y + offset*3,
+                x + offset*1, y + offset*4,
+                x + offset*0, y + offset*4,
+                // FRONT QUAD
+                x + offset*0, y + offset*3,
+                x + offset*1, y + offset*3,
+                x + offset*1, y + offset*4,
+                x + offset*0, y + offset*4,
+                // BACK QUAD
+                x + offset*0, y + offset*3,
+                x + offset*1, y + offset*3,
+                x + offset*1, y + offset*4,
+                x + offset*0, y + offset*4,
+                // LEFT QUAD
+                x + offset*0, y + offset*3,
+                x + offset*1, y + offset*3,
+                x + offset*1, y + offset*4,
+                x + offset*0, y + offset*4,
+                // RIGHT QUAD
+                x + offset*0, y + offset*3,
+                x + offset*1, y + offset*3,
+                x + offset*1, y + offset*4,
+                x + offset*0, y + offset*4};
+            default:
+                return new float[] {
+                // Top
                 x + offset*3, y + offset*10,
                 x + offset*2, y + offset*10,
                 x + offset*2, y + offset*9,
                 x + offset*3, y + offset*9,
-                // TOP!
+                // Bottom
                 x + offset*3, y + offset*1,
                 x + offset*2, y + offset*1,
                 x + offset*2, y + offset*0,

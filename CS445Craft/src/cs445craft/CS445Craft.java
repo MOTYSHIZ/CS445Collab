@@ -3,8 +3,8 @@
 * author: Justin Ordonez
 * class: CS 445 – Computer Graphics
 *
-* assignment: Final Project Checkpoint 1
-* date last modified: 11/4/2015
+* assignment: Final Project Checkpoint 2
+* date last modified: 11/19/2015
 *
 * purpose:
 *
@@ -23,7 +23,7 @@ import org.lwjgl.util.glu.GLU;
  * @author Justin
  */
 public class CS445Craft {
-    private FPCameraController fp = new FPCameraController(0f,0f,0f);
+    private FPCameraController fp;
     private DisplayMode displayMode;
 
     /** method: start
@@ -34,8 +34,8 @@ public class CS445Craft {
         try {
             createWindow();
             initGL();
+            fp = new FPCameraController(0f,0f,0f);
             fp.gameLoop();
-            //render();
         } catch (Exception e) {
             e.printStackTrace();
         }

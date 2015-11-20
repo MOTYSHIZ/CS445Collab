@@ -16,7 +16,7 @@ public class FPCameraController {
     //the rotation around the X axis of the camera
     private float pitch = 0.0f;
     private Vector3f me;
-    private Chunk chunk;
+    private Chunk chunk = new Chunk(0, 0, 0);
 
 
     public FPCameraController(float x, float y, float z){
@@ -156,7 +156,7 @@ public class FPCameraController {
             glEnable(GL_DEPTH_TEST); //Allows depth perception
             //you would draw your scene here.
             
-            chunk = new Chunk(0, 0, 0);
+//            chunk = new Chunk(0, 0, 0);
             chunk.render();
             
             //draw the buffer to the screen
@@ -167,6 +167,7 @@ public class FPCameraController {
         Display.destroy();
     }
     
+    //Only used for Checkpoint 1
     private void render() {
         try{
             glBegin(GL_QUADS);
