@@ -19,7 +19,8 @@ import org.lwjgl.opengl.DisplayMode;
 import static org.lwjgl.opengl.GL11.*;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.util.glu.GLU;
-
+import java.nio.FloatBuffer;
+import org.lwjgl.BufferUtils;
 /**
  *
  * @author Justin
@@ -27,6 +28,8 @@ import org.lwjgl.util.glu.GLU;
 public class CS445Craft {
     private FPCameraController fp;
     private DisplayMode displayMode;
+    private FloatBuffer lightPosition;
+    private FloatBuffer whiteLight;
 
     /** method: start
      * purpose: This method calls all the methods to set up
@@ -85,6 +88,22 @@ public class CS445Craft {
         //These are enabled for texture mapping.
         glEnable(GL_TEXTURE_2D);
         glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+        
+        //Lighting
+        initLightArrays();
+        glLight(GL_LIGHT0, GL_POSITION, lightPosition); //sets our light’s position
+        glLight(GL_LIGHT0, GL_SPECULAR, whiteLight);//sets our specular light
+        glLight(GL_LIGHT0, GL_DIFFUSE, whiteLight);//sets our diffuse light
+        glLight(GL_LIGHT0, GL_AMBIENT, whiteLight);//sets our ambient light
+        glEnable(GL_LIGHTING);//enables our lighting
+        glEnable(GL_LIGHT0);//enables light0
+    }
+    
+    private void initLightArrays() {
+        lightPosition = BufferUtils.createFloatBuffer(4);
+        lightPosition.put(0.0f).put(0.0f).put(0.0f).put(1.0f).flip();
+        whiteLight= BufferUtils.createFloatBuffer(4);
+        whiteLight.put(1.0f).put(1.0f).put(1.0f).put(0.0f).flip();
     }
     
     /** method: main

@@ -81,22 +81,60 @@ public class Chunk {
 
                 float height = startY + noiseValue * CUBE_LENGTH;
                 height = (3*height/25);
+                double s = Math.ceil((double)height);
                 
                 for(y = 0; y < CHUNK_SIZE; y++){
-                    if(height > y) {
+                    if(s >= y) {
                         VertexPositionData.put(createCube((float) 
                             (startX+ x *CUBE_LENGTH),
                             (float)(y*CUBE_LENGTH+(int)(CHUNK_SIZE*.8)),
                             (float) (startZ+ z * CUBE_LENGTH)));
-                    VertexColorData.put(createCubeVertexCol(
+                        VertexColorData.put(createCubeVertexCol(
                             getCubeColor(Blocks[(int) x][(int) y][(int) z])));
-                    VertexTextureData.put(createTexCube((float) 0, (float) 0,
-                            Blocks[(int)(x)][(int) (y)][(int) (z)]));
+                        
+                        if(y == 0) { //creates bedrock layer
+                            Blocks[(int)x][(int)y][(int)z] = new Block(Block.BlockType.BlockType_Bedrock);
+                            VertexTextureData.put(createTexCube((float) 0, (float) 0,
+                                Blocks[(int)(x)][(int) (y)][(int) (z)]));
+                        } else if (s == y) {
+                            //creates top most layer
+                            
+                            if(r.nextFloat() > .75) {
+                                Blocks[(int)x][(int)y][(int)z] = 
+                                        new Block(Block.BlockType.BlockType_Grass);
+                            } else if(r.nextFloat() > .5) {
+                                Blocks[(int) x][(int)y][(int) z] = 
+                                        new Block(Block.BlockType.BlockType_Glowstone);
+                            } else if(r.nextFloat() > .25) {
+                                Blocks[(int)x][(int)y][(int)z] =
+                                        new Block(Block.BlockType.BlockType_Sand);
+                            }else {
+                                Blocks[(int)x][(int)y][(int)z] = 
+                                        new Block(Block.BlockType.BlockType_Water);
+                            }
+                            VertexTextureData.put(createTexCube((float) 0, (float) 0,
+                                Blocks[(int)(x)][(int) (y)][(int) (z)]));
+                            
+                        }else { //creates innermost layers of THE EARTH! 
+                            if(r.nextFloat() > .5) {
+                                Blocks[(int)x][(int) y][(int)z] = 
+                                        new Block(Block.BlockType.BlockType_Stone);
+                            } else {
+                                Blocks[(int)x][(int)y][(int)z] =
+                                        new Block(Block.BlockType.BlockType_Dirt);
+                            }
+                            VertexTextureData.put(createTexCube((float) 0, (float) 0,
+                                Blocks[(int)(x)][(int) (y)][(int) (z)]));
+                        } 
+                        
                     }
                     
                 }
             }
         }
+        
+        //Add correct layers here
+        
         
         VertexColorData.flip();
         VertexPositionData.flip();
@@ -175,31 +213,6 @@ public class Chunk {
         r= new Random();
         Blocks = new Block[CHUNK_SIZE][CHUNK_SIZE][CHUNK_SIZE];
         
-        for (int x = 0; x < CHUNK_SIZE; x++) {
-            for (int y = 0; y < CHUNK_SIZE; y++) {
-                for (int z = 0; z < CHUNK_SIZE; z++) {
-                    if(r.nextFloat()>0.86f){Blocks[x][y][z] = new Block(
-                        Block.BlockType.BlockType_Grass);
-                    }else if(r.nextFloat()>0.71f){
-                        Blocks[x][y][z] = 
-                                new Block(Block.BlockType.BlockType_Sand);
-                    }else if(r.nextFloat() > 0.57f) {
-                        Blocks[x][y][z] = 
-                                new Block(Block.BlockType.BlockType_Water);
-                    }else if(r.nextFloat()>0.43f){
-                        Blocks[x][y][z] = 
-                                new Block(Block.BlockType.BlockType_Dirt);
-                    } else if(r.nextFloat() > 0.29f) {
-                        Blocks[x][y][z] = 
-                                new Block(Block.BlockType.BlockType_Stone);
-                    }else if(r.nextFloat() > 0.14f) {Blocks[x][y][z] = 
-                            new Block(Block.BlockType.BlockType_Bedrock);
-                    }else {Blocks[x][y][z] = 
-                            new Block(Block.BlockType.BlockType_Glowstone);
-                    }
-                } //numbers above divide the 7 block types into 7 categories
-            }
-        }
         VBOColorHandle= glGenBuffers();
         VBOVertexHandle= glGenBuffers();
         VBOTextureHandle= glGenBuffers();
@@ -207,6 +220,7 @@ public class Chunk {
         StartX= startX;
         StartY= startY;
         StartZ= startZ;
+        
         rebuildMesh(startX, startY, startZ);
     }
     
@@ -472,7 +486,4 @@ public class Chunk {
                 x + offset*3, y + offset*1};
         }
     }
-            
-        
-    
 }

@@ -1,18 +1,6 @@
 package cs445craft;
 
 import java.util.Random;
-/***************************************************************
-* file: SimplexNoise.java
-* author: Justin Ordonez & Kacey Yahl
-* class: CS 445 – Computer Graphics
-*
-* assignment: Final Project Checkpoint 2
-* date last modified: 11/19/2015
-*
-* purpose: Generates Simplex noise for the mild randomization of our block
-* placement. Uses SimplexNoise_octave so it can generate noise octaves.
-*
-****************************************************************/ 
 
 public class SimplexNoise {
 
