@@ -3,12 +3,14 @@
 * author: Justin Ordonez & Kacey Yahl
 * class: CS 445 – Computer Graphics
 *
-* assignment: Final Project Checkpoint 2
-* date last modified: 11/19/2015
+* assignment: Final Project
+* date last modified: 11/29/2015
 *
 * purpose: Main class of the program, calls the other classes from its
 * start() method. Create terrain with simplex noise, add in textures,
 * and make sure everything is in a chunk. 
+* 
+* Textures from Riverwood texture pack made by Steelfeathers
 *
 ****************************************************************/ 
 
@@ -21,15 +23,14 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.util.glu.GLU;
 import java.nio.FloatBuffer;
 import org.lwjgl.BufferUtils;
-/**
- *
- * @author Justin
- */
+
+
 public class CS445Craft {
     private FPCameraController fp;
     private DisplayMode displayMode;
     private FloatBuffer lightPosition;
     private FloatBuffer whiteLight;
+
 
     /** method: start
      * purpose: This method calls all the methods to set up
@@ -72,7 +73,7 @@ public class CS445Craft {
      * how the coordinate system is set up.
     **/    
     private void initGL() {
-        glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+        glClearColor(0.0f, 0.6f, 1.0f, 0.0f);
         glMatrixMode(GL_PROJECTION);
         glLoadIdentity();
         GLU.gluPerspective(100.0f, (float)displayMode.getWidth()/(float) 
@@ -89,19 +90,26 @@ public class CS445Craft {
         glEnable(GL_TEXTURE_2D);
         glEnableClientState(GL_TEXTURE_COORD_ARRAY);
         
+        //Enables transparency for txtures
+        glEnable(GL_BLEND);
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+        
         //Lighting
         initLightArrays();
         glLight(GL_LIGHT0, GL_POSITION, lightPosition); //sets our light’s position
         glLight(GL_LIGHT0, GL_SPECULAR, whiteLight);//sets our specular light
         glLight(GL_LIGHT0, GL_DIFFUSE, whiteLight);//sets our diffuse light
         glLight(GL_LIGHT0, GL_AMBIENT, whiteLight);//sets our ambient light
+        
         glEnable(GL_LIGHTING);//enables our lighting
         glEnable(GL_LIGHT0);//enables light0
+        
     }
     
     private void initLightArrays() {
         lightPosition = BufferUtils.createFloatBuffer(4);
         lightPosition.put(0.0f).put(0.0f).put(0.0f).put(1.0f).flip();
+        
         whiteLight= BufferUtils.createFloatBuffer(4);
         whiteLight.put(1.0f).put(1.0f).put(1.0f).put(0.0f).flip();
     }

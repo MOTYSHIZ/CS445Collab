@@ -29,7 +29,8 @@ public class Block {
         BlockType_Dirt(3), 
         BlockType_Stone(4),  
         BlockType_Bedrock(5), 
-        BlockType_Glowstone(6); 
+        BlockType_Glowstone(6),
+        BlockType_Cactus(7);
         
         private int BlockID;
         

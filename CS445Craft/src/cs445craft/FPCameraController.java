@@ -16,6 +16,8 @@ package cs445craft;
 
 import java.nio.FloatBuffer;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.util.vector.Vector3f;
 import org.lwjgl.input.Keyboard;
@@ -36,6 +38,10 @@ public class FPCameraController {
     private Vector3f me;
     private Chunk chunk;
     private boolean day = true;
+    private boolean cycle = false;
+    
+    private float xOffset;
+    private float zOffset;
 
     /** method: FPCameraController
      * purpose: Constructor for this class. Parameters are the starting 
@@ -50,8 +56,8 @@ public class FPCameraController {
         lPosition.z = 30f;
         
         Random r = new Random(); //helps generate chunks of random height
-//        chunk = new Chunk(0, r.nextInt(50), 0);
-        chunk = new Chunk(0, 0, 0);
+        chunk = new Chunk(0, r.nextInt(50), 0);
+        //chunk = new Chunk(0, 0, 0);
     }
     
     /** method: yaw
@@ -75,60 +81,60 @@ public class FPCameraController {
     * purpose: Moves the camera forward relative to its current rotation (yaw)
     **/ 
     public void walkForward(float distance){
-        float xOffset= distance * (float)Math.sin(Math.toRadians(yaw));
-        float zOffset= distance * (float)Math.cos(Math.toRadians(yaw));
+        xOffset= distance * (float)Math.sin(Math.toRadians(yaw));
+        zOffset= distance * (float)Math.cos(Math.toRadians(yaw));
         position.x-= xOffset;
         position.z+= zOffset;
         
 //        //Light movement
-//        FloatBuffer lightPosition= BufferUtils.createFloatBuffer(4);
-//        lightPosition.put(lPosition.x-=xOffset).put(lPosition.y).put(lPosition.z+=zOffset).put(1.0f).flip();
-//        glLight(GL_LIGHT0, GL_POSITION, lightPosition);
+        FloatBuffer lightPosition= BufferUtils.createFloatBuffer(4);
+        lightPosition.put(lPosition.x+=xOffset).put(lPosition.y).put(lPosition.z-=zOffset).put(1.0f).flip();
+        glLight(GL_LIGHT0, GL_POSITION, lightPosition);
     }
     
     /** method: walkBackwards
     * purpose: Moves the camera backward relative to its current rotation (yaw)
     **/ 
     public void walkBackwards(float distance){
-        float xOffset= distance * (float)Math.sin(Math.toRadians(yaw));
-        float zOffset= distance * (float)Math.cos(Math.toRadians(yaw));
+        xOffset= distance * (float)Math.sin(Math.toRadians(yaw));
+        zOffset= distance * (float)Math.cos(Math.toRadians(yaw));
         position.x+= xOffset;
         position.z-= zOffset;
         
 //        //Light movement
-//        FloatBuffer lightPosition= BufferUtils.createFloatBuffer(4);
-//        lightPosition.put(lPosition.x+=xOffset).put(lPosition.y).put(lPosition.z-=zOffset).put(1.0f).flip();
-//        glLight(GL_LIGHT0, GL_POSITION, lightPosition);
+        FloatBuffer lightPosition= BufferUtils.createFloatBuffer(4);
+        lightPosition.put(lPosition.x-=xOffset).put(lPosition.y).put(lPosition.z+=zOffset).put(1.0f).flip();
+        glLight(GL_LIGHT0, GL_POSITION, lightPosition);
     }
     
     /** method: strafeLeft
     * purpose: Strafes the camera left relative to its current rotation (yaw)
     **/ 
     public void strafeLeft(float distance){
-        float xOffset= distance * (float)Math.sin(Math.toRadians(yaw-90));
-        float zOffset= distance * (float)Math.cos(Math.toRadians(yaw-90));
+        xOffset= distance * (float)Math.sin(Math.toRadians(yaw-90));
+        zOffset= distance * (float)Math.cos(Math.toRadians(yaw-90));
         position.x-= xOffset;
         position.z+= zOffset;
         
 //        //Light movement
-//        FloatBuffer lightPosition= BufferUtils.createFloatBuffer(4);
-//        lightPosition.put(lPosition.x-=xOffset).put(lPosition.y).put(lPosition.z+=zOffset).put(1.0f).flip();
-//        glLight(GL_LIGHT0, GL_POSITION, lightPosition);
+        FloatBuffer lightPosition= BufferUtils.createFloatBuffer(4);
+        lightPosition.put(lPosition.x-=xOffset).put(lPosition.y).put(lPosition.z+=zOffset).put(1.0f).flip();
+        glLight(GL_LIGHT0, GL_POSITION, lightPosition);
     }
     
     /** method: strafeRight
     * purpose: Strafes the camera right relative to its current rotation (yaw)
     **/ 
     public void strafeRight(float distance){
-        float xOffset= distance * (float)Math.sin(Math.toRadians(yaw+90));
-        float zOffset= distance * (float)Math.cos(Math.toRadians(yaw+90));
+        xOffset= distance * (float)Math.sin(Math.toRadians(yaw+90));
+        zOffset= distance * (float)Math.cos(Math.toRadians(yaw+90));
         position.x-= xOffset;
         position.z+= zOffset;
         
 //        //Light movement
-//        FloatBuffer lightPosition= BufferUtils.createFloatBuffer(4);
-//        lightPosition.put(lPosition.x-=xOffset).put(lPosition.y).put(lPosition.z+=zOffset).put(1.0f).flip();
-//        glLight(GL_LIGHT0, GL_POSITION, lightPosition);
+        FloatBuffer lightPosition= BufferUtils.createFloatBuffer(4);
+        lightPosition.put(lPosition.x-=xOffset).put(lPosition.y).put(lPosition.z+=zOffset).put(1.0f).flip();
+        glLight(GL_LIGHT0, GL_POSITION, lightPosition);
     }
     
     /** method: moveUp
@@ -170,7 +176,7 @@ public class FPCameraController {
     * Pressing ESC closes the program.
     **/
     public void gameLoop(){
-        FPCameraController camera = new FPCameraController(0, 0, 0);
+        final FPCameraController camera = new FPCameraController(0, 0, 0);
         float dx = 0.0f;
         float dy= 0.0f;
         float dt= 0.0f; //length of frame
@@ -222,14 +228,30 @@ public class FPCameraController {
             if (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT)) {     //move down  
                 camera.moveDown(movementSpeed);
             }
-            if (Keyboard.isKeyDown(Keyboard.KEY_F)) {     //move down  
+            if (Keyboard.isKeyDown(Keyboard.KEY_F)) {     //change lighting  
                 if(day){
                     camera.lPosition.x -= 10000f;
                     day = false;
                 }else{
                     camera.lPosition.x  = 30f;
+                    camera.lPosition.z = 30f;
                     day = true;
                 }
+            }
+            if(Keyboard.isKeyDown(Keyboard.KEY_L)) { //day night cycle
+                cycle = !cycle;
+            }
+            
+            if(cycle) {
+                
+                if(camera.lPosition.x < 200) {
+                    camera.lPosition.x += 2f;
+                    
+                } else {
+                    camera.lPosition.x = -200f;
+                }
+            } else {
+                
             }
             
             //set the modelviewmatrix back to the identity
