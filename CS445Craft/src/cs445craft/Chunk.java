@@ -39,7 +39,6 @@ public class Chunk {
     private float[][] frustum = new float[6][4];
     
     public void render(){
-//        rebuildMesh(StartX,StartY,StartZ);
         glPushMatrix();
             glBindBuffer(GL_ARRAY_BUFFER,VBOVertexHandle);
             glVertexPointer(3, GL_FLOAT, 0, 0L);
@@ -162,8 +161,9 @@ public class Chunk {
         return cubeColors;
     }
     
-    public static float[] createCube(float x, float y, float z) {
+    public float[] createCube(float x, float y, float z) {
         int offset = CUBE_LENGTH / 2;
+
             return new float[] {
             // TOP QUAD
             x + offset, y + offset, z,
@@ -661,29 +661,17 @@ public class Chunk {
        return true;
     }
     
+    /** method: cubeInFrustrum
+    * purpose: Checks if a cube is in the frustrum by calling pointInFrustrum()
+    * for every vertex in the cube.
+    * Returns true if cube is within frustrum.
+    **/  
     private boolean cubeInFrustrum(float x, float y, float z) {
         boolean inFrust = false;
         int offset = CUBE_LENGTH / 2;
-            // TOP QUAD
-            if(pointInFrustum(x + offset, y + offset, z))inFrust = true;
-            if(pointInFrustum(x -offset, y + offset, z))inFrust = true;
-            if(pointInFrustum(x -offset, y + offset, z -CUBE_LENGTH))inFrust = true;
-            if(pointInFrustum(x + offset, y + offset, z -CUBE_LENGTH))inFrust = true;
-            // BOTTOM QUAD
-            if(pointInFrustum(x + offset, y -offset, z -CUBE_LENGTH))inFrust = true;
-            if(pointInFrustum(x -offset, y -offset, z -CUBE_LENGTH))inFrust = true;
-            if(pointInFrustum(x -offset, y -offset, z))inFrust = true;
-            if(pointInFrustum(x + offset, y -offset, z))inFrust = true;
-            // FRONT QUAD
-            if(pointInFrustum(x + offset, y + offset, z -CUBE_LENGTH))inFrust = true;
-            if(pointInFrustum(x -offset, y + offset, z -CUBE_LENGTH))inFrust = true;
-            if(pointInFrustum(x -offset, y -offset, z -CUBE_LENGTH))inFrust = true;
-            if(pointInFrustum(x + offset, y -offset, z -CUBE_LENGTH))inFrust = true;
-            // BACK QUAD
-            if(pointInFrustum(x + offset, y -offset, z))inFrust = true;
-            if(pointInFrustum(x -offset, y -offset, z))inFrust = true;
-            if(pointInFrustum(x -offset, y + offset, z))inFrust = true;
-            if(pointInFrustum(x + offset, y + offset, z))inFrust = true;
+            //Top,Bottom,Front and Back Quad vertices ommitted because they are essentially
+            //The same verices as the Left and Right quads combined.
+        
             // LEFT QUAD
             if(pointInFrustum(x -offset, y + offset, z -CUBE_LENGTH))inFrust = true;
             if(pointInFrustum(x -offset, y + offset, z))inFrust = true;
